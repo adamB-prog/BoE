@@ -55,4 +55,10 @@ public class MenuController : MonoBehaviour
         startSequence.Play();
         
     }
+    
+    
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
