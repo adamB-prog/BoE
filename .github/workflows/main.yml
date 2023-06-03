@@ -156,7 +156,7 @@ jobs:
 
   
   deployPages:
-    needs: buildWebGL, checkLicense
+    needs: buildWebGL
     name: Deploy to Github Pages 🚀
     runs-on: ubuntu-latest
     steps:
