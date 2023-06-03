@@ -11,8 +11,8 @@ public class NavigationSystem : MonoBehaviour
     [SerializeField] private GameObject target;
     [SerializeField] private float changeDistance = 1f;
     [SerializeField] private int reached = 0;
-    
-    public bool DebugLine { get; set; }
+
+    [SerializeField] private bool debugLine = false;
     private static Random rnd = new Random();
 
     void Start()
@@ -25,7 +25,7 @@ public class NavigationSystem : MonoBehaviour
     void Update()
     {
         HandleTargetChanging();
-        if (DebugLine)
+        if (debugLine)
         {
             Debug.DrawLine(transform.position, target.transform.position);
         }
