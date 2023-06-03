@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -14,8 +15,11 @@ public class PropulsionSystem : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float speedMultiplier;
     
-    [SerializeField] private float changeDistance;
+   
+    [SerializeField] private float xRotationSpeed;
     [SerializeField] private float yRotationSpeed;
+
+    [SerializeField] private float xRotationLimit;
 
 
     void Start()
@@ -26,33 +30,45 @@ public class PropulsionSystem : MonoBehaviour
 
     void Update()
     {
-        
         HandleTurning();
         Move();
     }
     
     private void Move()
     {
-        this.gameObject.transform.Translate(Vector3.forward * speed * speedMultiplier * Time.deltaTime);
+        this.gameObject.transform.Translate(Vector3.forward * (speed * speedMultiplier * Time.deltaTime));
     }
 
     private void HandleTurning()
     {
         var euler = transform.rotation.eulerAngles;
+        
+        var angleY = naviSystem.CorrectionAngleOnY();
 
+        var angleX = naviSystem.CorrectionAngleOnX();
 
-        var angleX = naviSystem.CorrectionAngleYZ();
-        if (angleX > 45f)
+        if (euler.y is >= 270 and < 360 or >= 0 and <= 90)
         {
-            angleX = 0;
+            angleX = -angleX;
         }
-        var angleY = naviSystem.CorrectionAngleXZ();
 
-        //var s = string.Format("angleX: {0}, angleY: {1}", angleX.ToString(), angleY.ToString());
+        angleX = Mathf.Clamp(angleX, -xRotationSpeed, xRotationSpeed);
+        angleY = Mathf.Clamp(angleY, -yRotationSpeed, yRotationSpeed);
         
-        //Debug.Log(s);
-        
-        this.gameObject.transform.eulerAngles = new Vector3(euler.x + angleX, euler.y + angleY, euler.z);
+        var x = euler.x + angleX;
+        var y = euler.y + angleY; 
+        var z = 0f;
+
+        if (euler.x > 180 && euler.x < 360 - xRotationLimit)
+        {
+            x = 360 - xRotationLimit;
+        }
+        else if (x < 180 && x > xRotationLimit)
+        {
+            x = xRotationLimit;
+        }
+
+        this.gameObject.transform.eulerAngles = new Vector3(x, y, z);
         
     }
 
