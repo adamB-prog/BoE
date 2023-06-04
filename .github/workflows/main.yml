@@ -147,7 +147,7 @@ jobs:
             Library-
 
       - name: Check file Structure
-        run: ls -a
+        run: ls ./Assets/Modell -a
 
       - uses: game-ci/unity-builder@v2.2.0
         with:
