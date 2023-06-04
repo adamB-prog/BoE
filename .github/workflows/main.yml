@@ -23,6 +23,7 @@ jobs:
       matrix:
         testMode:
           - EditMode
+          - PlayMode
           
     steps:
       - name: Checkout code
