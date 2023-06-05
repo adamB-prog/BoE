@@ -13,7 +13,7 @@ jobs:
       - name: Fail - No license
         if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
         run: exit 1
-        
+
   testRunner:
     needs: checkLicense
     name: Test in ${{ matrix.testMode }} ✨
@@ -24,13 +24,13 @@ jobs:
         testMode:
           - EditMode
           - PlayMode
-          
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3.5.2
 
       - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id 
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
         uses: actions/cache@v2
@@ -149,7 +149,7 @@ jobs:
       - name: Check file Structure
         run: ls ./Assets/Modell -a
 
-      - uses: game-ci/unity-builder@v2.2.0
+      - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneWindows64
 
@@ -158,7 +158,6 @@ jobs:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
 
-  
   deployPages:
     needs: buildWebGL
     name: Deploy to Github Pages 🚀
