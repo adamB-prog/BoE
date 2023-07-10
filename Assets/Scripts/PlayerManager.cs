@@ -83,7 +83,7 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        HandleTurning();
+        
         HandleRadarInput();
         HandleSpeedChange();
         HandleAttack();
@@ -93,6 +93,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         Move();
+        HandleTurning();
     }
 
     private void Move()
@@ -152,11 +153,11 @@ public class PlayerManager : MonoBehaviour
 
         if (z < 180)
         {
-            y += z * -yRotationSpeed;
+            y += z * -yRotationSpeed * Time.deltaTime;
         }
         else
         {
-            y += (z - 360) * -yRotationSpeed;
+            y += (z - 360) * -yRotationSpeed * Time.deltaTime;
         }
         
         
