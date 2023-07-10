@@ -57,7 +57,9 @@ public class PropulsionSystem : MonoBehaviour
         
         var x = euler.x + angleX;
         var y = euler.y + angleY; 
-        var z = 0f;
+        var z = 0;
+
+        
 
         if (euler.x > 180 && euler.x < 360 - xRotationLimit)
         {
