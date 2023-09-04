@@ -1,13 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject controlledObject;
-    
+
+    [SerializeField] private IWeaponSystem weaponSystem;
+
     [SerializeField] private bool controlEnabled = true;
 
     [SerializeField] private float sensitivity = 0.3f;
@@ -25,12 +24,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float startSpeed = 1.0f;
 
     [SerializeField] private float xRotationLimit;
-    
+
     [SerializeField] private float zRotationLimit;
 
     [SerializeField] private float rotationPerInputLimit;
-    
-    
 
 
     //actual in-game values
@@ -44,7 +41,6 @@ public class PlayerManager : MonoBehaviour
                 health = value;
                 healthBar.size = health;
             }
-            
         }
     }
 
@@ -58,8 +54,6 @@ public class PlayerManager : MonoBehaviour
                 speed = value;
                 speedBar.size = speed;
             }
-
-            
         }
     }
 
@@ -69,6 +63,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weaponSystem = GetComponent<IWeaponSystem>();
         Health = startHealth;
         Speed = startSpeed;
         healthBar.size = health;
@@ -83,11 +78,10 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        
+
         HandleRadarInput();
         HandleSpeedChange();
         HandleAttack();
-       
     }
 
     void Update()
@@ -101,13 +95,18 @@ public class PlayerManager : MonoBehaviour
         controlledObject.transform.Translate(Vector3.forward * speed * speedMultiplier * Time.deltaTime);
     }
 
+    private void ChangeFireMode()
+    {
+        weaponSystem.ChangeState();
+    }
+
     private void HandleAttack()
     {
         bool isAttacking = InputManager.GetInstance().GetShootPressed();
 
         if (isAttacking)
         {
-            //TODO shoot a projectile
+            weaponSystem.Shoot();
         }
     }
 
@@ -116,7 +115,6 @@ public class PlayerManager : MonoBehaviour
         float speedChange = InputManager.GetInstance().AccelarationChange();
 
         Speed += speedChange * Time.fixedDeltaTime;
-        
     }
 
     private void HandleRadarInput()
@@ -159,13 +157,9 @@ public class PlayerManager : MonoBehaviour
         {
             y += (z - 360) * -yRotationSpeed * Time.deltaTime;
         }
-        
-        
+
+
         //Apply the rotation
         controlledObject.transform.eulerAngles = new Vector3(x, y, z);
-
-
-
-
     }
 }

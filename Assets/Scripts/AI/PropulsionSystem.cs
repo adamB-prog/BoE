@@ -10,7 +10,7 @@ using UnityEngine;
 public class PropulsionSystem : MonoBehaviour
 {
 
-    [SerializeField] private NavigationSystem naviSystem;
+    private NavigationSystem naviSystem;
     
     [SerializeField] private float speed;
     [SerializeField] private float speedMultiplier;
@@ -57,9 +57,11 @@ public class PropulsionSystem : MonoBehaviour
         
         var x = euler.x + angleX;
         var y = euler.y + angleY; 
-        var z = 0;
-
         
+        //TODO filter the angleY and do some leap on turn and on back to center
+        var z = -angleY * 50;
+
+         
 
         if (euler.x > 180 && euler.x < 360 - xRotationLimit)
         {
@@ -69,8 +71,11 @@ public class PropulsionSystem : MonoBehaviour
         {
             x = xRotationLimit;
         }
+        
+        
 
         this.gameObject.transform.eulerAngles = new Vector3(x, y, z);
+
         
     }
 

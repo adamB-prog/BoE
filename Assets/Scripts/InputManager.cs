@@ -148,7 +148,7 @@ public class InputManager : MonoBehaviour
     public bool GetShootPressed()
     {
         bool result = shootPressed;
-        shootPressed = false;
+        //shootPressed = false;
         return result;
     }
 

@@ -2,24 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using AI;
 using Extensions;
 using UnityEngine;
 using Random = System.Random;
 
-public class NavigationSystem : MonoBehaviour
+public class NavigationSystem : MonoBehaviour, INavigationSystem
 {
-    [SerializeField] private GameObject target;
+    [SerializeField] private GameObject target = null;
     [SerializeField] private float changeDistance = 1f;
-    [SerializeField] private int reached = 0;
 
     [SerializeField] private bool debugLine = false;
     private static Random rnd = new Random();
 
     void Start()
     {
-        target = new GameObject(string.Format("{0}'s target", gameObject.name));
-        target.transform.position = new Vector3(rnd.NextFloat(-10f, -40f), rnd.NextFloat(-350f, -370f),
-            rnd.NextFloat(-300f, -400f));
+        CreateNewSpacePoint();
     }
 
     void Update()
@@ -31,19 +29,49 @@ public class NavigationSystem : MonoBehaviour
         }
     }
 
+    public void ChangeTarget(GameObject obj)
+    {
+        if (target.CompareTag("SpacePoint"))
+        {
+            Destroy(target);
+        }
+
+        target = obj;
+    }
+
+    public GameObject GetTarget()
+    {
+        return target;
+    }
+
     void HandleTargetChanging()
     {
         Vector3 targetDir = target.transform.position - transform.position;
-        if (target is null || targetDir.magnitude <= changeDistance)
+        if (target == null || targetDir.magnitude <= changeDistance)
         {
-            ++reached;
-            Destroy(target);
+            CreateNewSpacePoint();
+        }
+    }
+
+    void CreateNewSpacePoint()
+    {
+        if (target == null)
+        {
             target = new GameObject(string.Format("{0}'s target", gameObject.name));
+            target.tag = "SpacePoint";
+        }
+
+        if (target.CompareTag("SpacePoint"))
+        {
             target.transform.position = new Vector3(rnd.NextFloat(-10f, -40f), rnd.NextFloat(-355f, -365f),
                 rnd.NextFloat(-300f, -400f));
         }
+        else
+        {
+            target = null;
+            CreateNewSpacePoint();
+        }
     }
-    
 
     public float CorrectionAngleOnY()
     {
@@ -59,19 +87,19 @@ public class NavigationSystem : MonoBehaviour
 
         return angle;
     }
+
     //Need to check
     public float CorrectionAngleOnX()
     {
         Vector2 targetYZ = new Vector2(target.transform.position.y, target.transform.position.z);
         Vector2 localYZ = new Vector2(transform.position.y, transform.position.z);
-        
+
 
         Vector2 targetDir = targetYZ - localYZ;
-        
+
         Vector2 forward = new Vector2(transform.forward.y, transform.forward.z);
-        
+
         float angle = Vector2.SignedAngle(targetDir, forward);
         return angle;
     }
-
 }
