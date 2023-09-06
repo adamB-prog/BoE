@@ -7,7 +7,9 @@ public class PlayerWeaponSystem : MonoBehaviour, IWeaponSystem
 {
     [SerializeField] private List<RawImage> indicators;
     
-    [SerializeField] private List<Transform> projectileSpawners;
+    [SerializeField] private List<GameObject> projectileSpawners;
+
+    [SerializeField] private GameObject blastPrefab;
 
     [SerializeField] private Color activeColor;
 
@@ -23,12 +25,12 @@ public class PlayerWeaponSystem : MonoBehaviour, IWeaponSystem
     void Start()
     {
         _weaponMode = new SingleFireWeaponMode();
-        _weaponMode.Reset(indicators, inActiveColor, activeColor);
+        _weaponMode.ResetIndicators(indicators, inActiveColor, activeColor);
     }
 
     public void Shoot()
     {
-        _weaponMode.Shoot(indicators, projectileSpawners, inActiveColor, activeColor);
+        _weaponMode.Shoot(indicators, projectileSpawners, blastPrefab, inActiveColor, activeColor);
     }
 
     public void ChangeState()

@@ -5,35 +5,37 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SingleFireWeaponMode : IWeaponMode
+public class SingleFireWeaponMode : MonoBehaviour, IWeaponMode
 {
     private int _index = 0;
 
     private bool _canShoot = true;
-    public void Shoot(List<RawImage> indicators, List<Transform> projectileSpawners, Color inActive, Color active)
+    public void Shoot(List<RawImage> indicators, List<GameObject> projectileSpawners, GameObject blast, Color inActive, Color active)
     {
         if (!_canShoot) return;
-        
-        
         
         switch (_index)
         {
             case 0:
+                Instantiate(blast, projectileSpawners[_index].transform.position, projectileSpawners[_index].transform.rotation);
                 indicators[0].color = inActive;
                 indicators[1].color = active;
                 _index = 1;
                 break;
             case 1:
+                Instantiate(blast, projectileSpawners[_index].transform.position, projectileSpawners[_index].transform.rotation);
                 indicators[1].color = inActive;
                 indicators[2].color = active;
                 _index = 2;
                 break;
             case 2:
+                Instantiate(blast, projectileSpawners[_index].transform.position, projectileSpawners[_index].transform.rotation);
                 indicators[2].color = inActive;
                 indicators[3].color = active;
                 _index = 3;
                 break;
             case 3:
+                Instantiate(blast, projectileSpawners[_index].transform.position, projectileSpawners[_index].transform.rotation);
                 indicators[3].color = inActive;
                 indicators[0].color = active;
                 _index = 0;
@@ -48,7 +50,7 @@ public class SingleFireWeaponMode : IWeaponMode
         return this;
     }
 
-    public void Reset(List<RawImage> indicators, Color inActive, Color active)
+    public void ResetIndicators(List<RawImage> indicators, Color inActive, Color active)
     {
         _index = 0;
         foreach (var indicator in indicators)

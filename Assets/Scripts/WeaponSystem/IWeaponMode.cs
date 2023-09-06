@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public interface IWeaponMode
 {
-    void Shoot(List<RawImage> indicators, List<Transform> projectileSpawners, Color inActive, Color active);
+    void Shoot(List<RawImage> indicators, List<GameObject> projectileSpawners, GameObject blast, Color inActive, Color active);
 
     IWeaponMode ChangeState();
 
-    void Reset(List<RawImage> indicators, Color inActive, Color active);
+    void ResetIndicators(List<RawImage> indicators, Color inActive, Color active);
 
     void CoolDown();
 }

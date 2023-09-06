@@ -92,7 +92,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Move()
     {
-        controlledObject.transform.Translate(Vector3.forward * speed * speedMultiplier * Time.deltaTime);
+        controlledObject.transform.Translate(Vector3.forward * (speed * speedMultiplier * Time.deltaTime));
     }
 
     private void ChangeFireMode()
@@ -128,9 +128,10 @@ public class PlayerManager : MonoBehaviour
     {
         Vector2 directionDelta = InputManager.GetInstance().GetMouseDelta() * sensitivity;
 
-        float x = controlledObject.transform.eulerAngles.x;
-        float y = controlledObject.transform.eulerAngles.y;
-        float z = controlledObject.transform.eulerAngles.z;
+        var eulerAngles = controlledObject.transform.eulerAngles;
+        float x = eulerAngles.x;
+        float y = eulerAngles.y;
+        float z = eulerAngles.z;
 
         //Clamping the input
         z += Mathf.Clamp(-directionDelta.x, -rotationPerInputLimit, rotationPerInputLimit);
