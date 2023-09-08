@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject controlledObject;
-
-    [SerializeField] private IWeaponSystem weaponSystem;
+    
+    private IWeaponSystem _weaponSystem;
 
     [SerializeField] private bool controlEnabled = true;
 
@@ -33,41 +33,41 @@ public class PlayerManager : MonoBehaviour
     //actual in-game values
     public float Health
     {
-        get => health;
+        get => _health;
         private set
         {
             if (value is >= 0.0f and <= 1.0f)
             {
-                health = value;
-                healthBar.size = health;
+                _health = value;
+                healthBar.size = _health;
             }
         }
     }
 
     public float Speed
     {
-        get => speed;
+        get => _speed;
         private set
         {
             if (value is >= 0.5f and <= 1.0f)
             {
-                speed = value;
-                speedBar.size = speed;
+                _speed = value;
+                speedBar.size = _speed;
             }
         }
     }
 
-    private float health;
-    private float speed;
+    private float _health;
+    private float _speed;
 
     // Start is called before the first frame update
     void Start()
     {
-        weaponSystem = GetComponent<IWeaponSystem>();
+        _weaponSystem = GetComponent<IWeaponSystem>();
         Health = startHealth;
         Speed = startSpeed;
-        healthBar.size = health;
-        speedBar.size = speed;
+        healthBar.size = _health;
+        speedBar.size = _speed;
     }
 
     // Update is called once per frame
@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-
+        HandleChangeFireMode();
         HandleRadarInput();
         HandleSpeedChange();
         HandleAttack();
@@ -92,12 +92,15 @@ public class PlayerManager : MonoBehaviour
 
     private void Move()
     {
-        controlledObject.transform.Translate(Vector3.forward * (speed * speedMultiplier * Time.deltaTime));
+        controlledObject.transform.Translate(Vector3.forward * (_speed * speedMultiplier * Time.deltaTime));
     }
 
-    private void ChangeFireMode()
+    private void HandleChangeFireMode()
     {
-        weaponSystem.ChangeState();
+        if (InputManager.GetInstance().IsChangeWeaponStatePressed())
+        {
+            _weaponSystem.ChangeState();
+        }
     }
 
     private void HandleAttack()
@@ -106,7 +109,7 @@ public class PlayerManager : MonoBehaviour
 
         if (isAttacking)
         {
-            weaponSystem.Shoot();
+            _weaponSystem.Shoot();
         }
     }
 
@@ -139,7 +142,7 @@ public class PlayerManager : MonoBehaviour
 
         x += Mathf.Clamp(-directionDelta.y, -rotationPerInputLimit, rotationPerInputLimit);
 
-        //Clamping multiple rotation axies
+        //Clamping multiple rotation axes
         if (z > 180 && z < 360 - zRotationLimit)
             z = 360 - zRotationLimit;
         else if (z < 180 && z > zRotationLimit)

@@ -36,5 +36,6 @@ public class PlayerWeaponSystem : MonoBehaviour, IWeaponSystem
     public void ChangeState()
     {
         _weaponMode = _weaponMode.ChangeState();
+        _weaponMode.ResetIndicators(indicators, inActiveColor, activeColor);
     }
 }

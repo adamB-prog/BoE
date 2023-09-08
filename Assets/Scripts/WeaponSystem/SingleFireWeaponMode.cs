@@ -47,7 +47,8 @@ public class SingleFireWeaponMode : MonoBehaviour, IWeaponMode
 
     public IWeaponMode ChangeState()
     {
-        return this;
+        
+        return new DoubleFireWeaponMode();
     }
 
     public void ResetIndicators(List<RawImage> indicators, Color inActive, Color active)

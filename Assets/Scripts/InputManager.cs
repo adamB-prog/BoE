@@ -16,6 +16,8 @@ public class InputManager : MonoBehaviour
 
     private bool shootPressed;
 
+    private bool changeWeaponStatePressed;
+
     //UIControl
 
     private bool submitPressed;
@@ -91,6 +93,18 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void ChangeWeaponStetePressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            changeWeaponStatePressed = true;
+        }
+        else
+        {
+            changeWeaponStatePressed = false;
+        }
+    }
+
     public void NavigationPressed(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -149,6 +163,13 @@ public class InputManager : MonoBehaviour
     {
         bool result = shootPressed;
         //shootPressed = false;
+        return result;
+    }
+
+    public bool IsChangeWeaponStatePressed()
+    {
+        bool result = changeWeaponStatePressed;
+        changeWeaponStatePressed = false;
         return result;
     }
 

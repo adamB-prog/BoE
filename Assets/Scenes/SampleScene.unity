@@ -856,6 +856,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c4a07561-833d-4781-b11a-214f34e9c6b2
     m_ActionName: UIControl/Escape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 170200476}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ChangeWeaponStetePressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 013e3512-329a-46f6-b024-137d8aa4e679
+    m_ActionName: ShipControl/ChangeWeaponMode[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ShipControl
@@ -9733,77 +9749,3 @@ MonoBehaviour:
     type: 3}
   activeColor: {r: 1, g: 0, b: 0, a: 1}
   inActiveColor: {r: 0.475, g: 0, b: 0, a: 1}
---- !u!1001 &1546455873683309563
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -29.325
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -369.344
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -110.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992444080952585925, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710728678913648009, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_Name
-      value: LaserBlast
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710728678913648009, guid: 5f3e34b5111fe2146af9aa1aa6f9df10,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5f3e34b5111fe2146af9aa1aa6f9df10, type: 3}
