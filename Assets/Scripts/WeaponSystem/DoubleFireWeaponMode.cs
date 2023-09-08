@@ -9,10 +9,10 @@ public class DoubleFireWeaponMode : MonoBehaviour, IWeaponMode
 
     private int _index;
 
-    private bool _canShoot = true;
+    public int CooldownTime { get; } = 666;
+
     public void Shoot(List<RawImage> indicators, List<GameObject> projectileSpawners, GameObject blast, Color inActive, Color active)
     {
-        if (!_canShoot) return;
         
         switch (_index)
         {
@@ -36,12 +36,10 @@ public class DoubleFireWeaponMode : MonoBehaviour, IWeaponMode
                 break;
         }
         
-        CoolDown();
     }
 
     public IWeaponMode ChangeState()
     {
-        // ReSharper disable once Unity.IncorrectMonoBehaviourInstantiation
         return new FullFireWeaponMode();
     }
 
@@ -53,14 +51,5 @@ public class DoubleFireWeaponMode : MonoBehaviour, IWeaponMode
         indicators[0].color = active;
         indicators[3].color = active;
     }
-
-    public void CoolDown()
-    {
-        _canShoot = false;
-        Task.Run(async () =>
-        {
-            await Task.Delay(666);
-            _canShoot = true;
-        });
-    }
+    
 }

@@ -9,10 +9,10 @@ public class SingleFireWeaponMode : MonoBehaviour, IWeaponMode
 {
     private int _index = 0;
 
-    private bool _canShoot = true;
+    public int CooldownTime { get; } = 333;
+
     public void Shoot(List<RawImage> indicators, List<GameObject> projectileSpawners, GameObject blast, Color inActive, Color active)
     {
-        if (!_canShoot) return;
         
         switch (_index)
         {
@@ -42,12 +42,10 @@ public class SingleFireWeaponMode : MonoBehaviour, IWeaponMode
                 break;
         }
         
-        CoolDown();
     }
 
     public IWeaponMode ChangeState()
     {
-        
         return new DoubleFireWeaponMode();
     }
 
@@ -60,17 +58,5 @@ public class SingleFireWeaponMode : MonoBehaviour, IWeaponMode
         }
 
         indicators[0].color = active;
-    }
-
-    public void CoolDown()
-    {
-        _canShoot = false;
-        Task.Run(async () =>
-        {
-            await Task.Delay(333);
-            _canShoot = true;
-        });
-
-
     }
 }
